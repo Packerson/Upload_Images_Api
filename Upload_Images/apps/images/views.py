@@ -14,10 +14,17 @@ class ImageViewSet(ListAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
 
-    # def post(self, request, *args, **kwargs):
-    #     file = request.data['file']
-    #     image = Image.objects.create(image=file)
-    #     return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
+
+class ImageUploadViewSet(ListAPIView):
+    serializer_class = ImageSerializer
+
+    def post(self, request, *args, **kwargs):
+        file = request.data['file']
+        title = request.data['title']
+        alt = request.data['alt']
+        user = self.request.user
+        image = Image.objects.create(image=file, user=user, title=title, alt=alt)
+        return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
 
 
 class GetUsersImagesViewSet(APIView):
