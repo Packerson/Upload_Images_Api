@@ -8,6 +8,5 @@ class ImageAdmin(admin.ModelAdmin):
     list_display_links = ['user', 'title']
 
 
-# admin.site.register(Image)
 admin.site.register(Image, ImageAdmin)
 
