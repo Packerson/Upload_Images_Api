@@ -33,47 +33,51 @@ def user_directory_path_others(instance, filename):
 class Image(models.Model):
     user = models.ForeignKey(User, related_name="user",
                              on_delete=models.CASCADE)
-    # plan = models.OneToOneField(Profile, related_name="plan",
-    #                             on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255, unique=True)
     alt = models.TextField(null=True)
     date_creation = models.DateTimeField(default=timezone.now)
     """extension validation in views method"""
-    image = models.ImageField(upload_to=user_directory_path, null=True)
+    image = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
     image_200 = models.ImageField(upload_to=user_directory_path_200, null=True, blank=True)
     image_400 = models.ImageField(upload_to=user_directory_path_400, null=True, blank=True)
 
     def save(self, **kwargs):
 
-        """Creating thumbnail 200px"""
+        if self.user.profile.tier != "CUSTOM":
 
-        output_size_200 = (200, 200)
-        output_thumb_200 = BytesIO()
+            """Creating thumbnail 200px"""
 
-        img_200 = PIL_IMAGE.open(self.image)
+            output_size_200 = (200, 200)
+            output_thumb_200 = BytesIO()
 
-        img_name = self.image.name.split('.')[0]
+            img_200 = PIL_IMAGE.open(self.image)
 
-        if img_200.height != 200 or img_200.width != 200:
-            img_200.thumbnail(output_size_200)
-            img_200.save(output_thumb_200, format='JPEG', quality=90)
+            img_name = self.image.name.split('.')[0]
 
-        self.image_200 = InMemoryUploadedFile(output_thumb_200, 'ImageField', f"{img_name}_thumb_200.jpg", 'image/jpg',
-                                              sys.getsizeof(output_thumb_200), None)
+            if img_200.height != 200 or img_200.width != 200:
+                img_200.thumbnail(output_size_200)
+                img_200.save(output_thumb_200, format='JPEG', quality=90)
 
-        """Creating thumbnail 400px"""
+            self.image_200 = InMemoryUploadedFile(output_thumb_200, 'ImageField', f"{img_name}_thumb_200.jpg", 'image/jpg',
+                                                  sys.getsizeof(output_thumb_200), None)
 
-        output_size_400 = (400, 400)
-        output_thumb_400 = BytesIO()
+        if self.user.profile.tier == "PREMIUM" or self.user.profile.tier == "ENTERPRISE":
+            """Creating thumbnail 400px"""
 
-        img_400 = PIL_IMAGE.open(self.image)
+            output_size_400 = (400, 400)
+            output_thumb_400 = BytesIO()
 
-        if img_400.height != 400 or img_400.width != 400:
-            img_400.thumbnail(output_size_400)
-            img_400.save(output_thumb_400, format='JPEG', quality=90)
+            img_400 = PIL_IMAGE.open(self.image)
 
-        self.image_400 = InMemoryUploadedFile(output_thumb_400, 'ImageField', f"{img_name}_thumb_400.jpg", 'image/jpg',
-                                              sys.getsizeof(output_thumb_400), None)
+            if img_400.height != 400 or img_400.width != 400:
+                img_400.thumbnail(output_size_400)
+                img_400.save(output_thumb_400, format='JPEG', quality=90)
+
+            self.image_400 = InMemoryUploadedFile(output_thumb_400, 'ImageField', f"{img_name}_thumb_400.jpg", 'image/jpg',
+                                                  sys.getsizeof(output_thumb_400), None)
+
+        if self.user.profile.tier == "BASIC":
+            self.image = None
 
         super(Image, self).save()
 
