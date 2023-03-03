@@ -21,7 +21,7 @@ class Image(models.Model):
     title = models.CharField(max_length=255, unique=True)
     alt = models.TextField(null=True)
     date_creation = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to=user_directory_path)
+    image = models.ImageField(upload_to=user_directory_path, validators=[validate_image_file_extension])
 
     def __str__(self):
         return f"{self.user.username}'s image"

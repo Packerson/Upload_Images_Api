@@ -5,9 +5,13 @@ from .models import Image
 class ImageSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user.username")
     email = serializers.EmailField(source="user.email")
+    # basic = serializers.CharField(source='plan.is_basic')
+    # premium = serializers.CharField(source='image.plan.is_premium')
+    # enterprise = serializers.CharField(source='plan.is_enterprise')
 
     class Meta:
         model = Image
+        depth = 1
         fields = [
             'username',
             'email',
@@ -15,6 +19,9 @@ class ImageSerializer(serializers.ModelSerializer):
             'title',
             'date_creation',
             'alt',
+            # 'basic',
+            # 'premium',
+            # 'enterprise',
             'plan',
             'image', ]
 

@@ -15,5 +15,5 @@ class ImageJSONRenderer(JSONRenderer):
         if errors is not None:
             return super(ImageJSONRenderer, self).render(data)
 
-        """if everything is ok return profile with data"""
+        """if everything is ok return image with data"""
         return json.dumps({"Image details": data})

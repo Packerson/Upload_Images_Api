@@ -16,47 +16,58 @@ class ImageViewSet(ListAPIView):
 
 
 class ImageUploadViewSet(ListAPIView):
+    queryset = Image.objects.all()
     serializer_class = ImageSerializer
 
     def post(self, request, *args, **kwargs):
         file = request.data['file']
+        print(file)
         title = request.data['title']
         alt = request.data['alt']
+
         user = self.request.user
-        image = Image.objects.create(image=file, user=user, title=title, alt=alt)
-        return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
-
-
-class GetUsersImagesViewSet(APIView):
-    """Generic Users Images"""
-    permission_classes = [permissions.IsAuthenticated]
-    renderer_classes = [ImageJSONRenderer]
-
-    def get(self, request):
-        user = self.request.user
-        user_images = Image.objects.filter(user=user)
-        images_array = []
-
-        print(user_images)
-        for image in user_images:
-            images_array.append(image)
-
-
-        print(images_array)
-
-        # return HttpResponse("Hello")
-        serializer = ImageSerializer(user_images, many=True, context={"request": request})
-
+        image = Image.objects.create(image=file, user=user, title=title, alt=alt, plan=user.profile)
+        serializer = ImageSerializer(image)
+        print(image)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class GetUsersImagesViewSet(generics.ListAPIView):
+    """Generic Users Images"""
+
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = [ImageSerializer]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Image.objects.filter(user=user)
 
 
-# class BasicPlanListApiView(generics.ListAPIView):
-#     """Generic list of BasicPlan"""
-#     permission_classes = [permissions.IsAuthenticated]
-#     queryset = Image.objects.filter(plan=)
-#     serializer_class = ImageSerializer
+class BasicPlanListApiView(generics.ListAPIView):
+    """Generic list of BasicPlan"""
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ImageSerializer
+
+    def get_queryset(self):
+        return Image.objects.filter(plan__is_basic=True)
+
+
+class PremiumPlanListApiView(generics.ListAPIView):
+    """Generic list of PremiumPlan"""
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ImageSerializer
+
+    def get_queryset(self):
+        return Image.objects.filter(plan__is_premium=True)
+
+
+class EnterprisePlanListApiView(generics.ListAPIView):
+    """Generic list of EnterprisePlan"""
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ImageSerializer
+
+    def get_queryset(self):
+        return Image.objects.filter(plan__is_enterprise=True)
 #
 #
 # class PremiumPlanListApiView(generics.ListAPIView):
