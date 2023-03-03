@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import validate_image_file_extension
+from rest_framework.exceptions import ValidationError
 
 from apps.profiles.models import Profile
 
@@ -21,7 +22,8 @@ class Image(models.Model):
     title = models.CharField(max_length=255, unique=True)
     alt = models.TextField(null=True)
     date_creation = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to=user_directory_path, validators=[validate_image_file_extension])
+    """extension validation in views method"""
+    image = models.ImageField(upload_to=user_directory_path)
 
     def __str__(self):
         return f"{self.user.username}'s image"

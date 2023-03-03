@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.generics import ListAPIView
@@ -21,15 +22,19 @@ class ImageUploadViewSet(ListAPIView):
 
     def post(self, request, *args, **kwargs):
         file = request.data['file']
-        print(file)
-        title = request.data['title']
-        alt = request.data['alt']
 
-        user = self.request.user
-        image = Image.objects.create(image=file, user=user, title=title, alt=alt, plan=user.profile)
-        serializer = ImageSerializer(image)
-        print(image)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        if file.name.lower().endswith('.jpg') or file.name.lower().endswith('.png'):
+
+            print(file)
+            title = request.data['title']
+            alt = request.data['alt']
+
+            user = self.request.user
+            image = Image.objects.create(image=file, user=user, title=title, alt=alt, plan=user.profile)
+            serializer = ImageSerializer(image)
+            print(image)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        raise ValidationError('Wrong extension, only jpg and png are accepted ')
 
 
 class GetUsersImagesViewSet(generics.ListAPIView):
