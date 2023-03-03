@@ -5,7 +5,7 @@ django-filter==21.1
 django-autoslug==1.9.8
 
 Pillow==8.3.2
-
+django-resized==1.0.2
 psycopg2-binary==2.9.1
 flake8==3.9.2
 black==21.6b0
