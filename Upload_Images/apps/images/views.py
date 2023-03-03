@@ -30,7 +30,7 @@ class ImageUploadViewSet(ListAPIView):
             alt = request.data['alt']
 
             user = self.request.user
-            image = Image.objects.create(image=file, user=user, title=title, alt=alt, plan=user.profile)
+            image = Image.objects.create(image=file, user=user, title=title, alt=alt)
             serializer = ImageSerializer(image)
             print(image)
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -54,7 +54,7 @@ class BasicPlanListApiView(generics.ListAPIView):
     serializer_class = ImageSerializer
 
     def get_queryset(self):
-        return Image.objects.filter(plan__is_basic=True)
+        return Image.objects.filter(user__profile__tier="BASIC")
 
 
 class PremiumPlanListApiView(generics.ListAPIView):
@@ -63,7 +63,7 @@ class PremiumPlanListApiView(generics.ListAPIView):
     serializer_class = ImageSerializer
 
     def get_queryset(self):
-        return Image.objects.filter(plan__is_premium=True)
+        return Image.objects.filter(user__profile__tier="PREMIUM")
 
 
 class EnterprisePlanListApiView(generics.ListAPIView):
@@ -72,18 +72,15 @@ class EnterprisePlanListApiView(generics.ListAPIView):
     serializer_class = ImageSerializer
 
     def get_queryset(self):
-        return Image.objects.filter(plan__is_enterprise=True)
+        return Image.objects.filter(user__profile__tier="ENTERPRISE")
+
+
+class CustomPlanListApiView(generics.ListAPIView):
+    """Generic list of EnterprisePlan"""
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ImageSerializer
+
+    def get_queryset(self):
+        return Image.objects.filter(user__profile__tier="CUSTOM")
 #
-#
-# class PremiumPlanListApiView(generics.ListAPIView):
-#     """Generic list of PremiumPlan"""
-#     permission_classes = [permissions.IsAuthenticated]
-#     queryset = Image.objects.filter(is_premium=True)
-#     serializer_class = ImageSerializer
-#
-#
-# class EnterprisePlanListApiView(generics.ListAPIView):
-#     """Generic list of EnterprisePlan"""
-#     permission_classes = [permissions.IsAuthenticated]
-#     queryset = Image.objects.filter(is_enterprise=True)
-#     serializer_class = ImageSerializer
+

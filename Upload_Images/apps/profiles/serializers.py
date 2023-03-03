@@ -18,9 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'full_name',
             'email',
             'id',
-            'is_basic',
-            "is_premium",
-            'is_enterprise',
+            'tier'
             ]
 
     def get_full_name(self, obj):
@@ -34,9 +32,7 @@ class UpdatedProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'is_basic',
-            "is_premium",
-            'is_enterprise',
+            'tier'
             ]
 
 

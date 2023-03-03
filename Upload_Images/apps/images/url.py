@@ -8,6 +8,7 @@ from .views import (ImageViewSet,
                     BasicPlanListApiView,
                     EnterprisePlanListApiView,
                     PremiumPlanListApiView,
+                    CustomPlanListApiView
                     )
 
 urlpatterns = [
@@ -22,4 +23,7 @@ urlpatterns = [
     path("enterprise/",
          EnterprisePlanListApiView.as_view(queryset=Image.objects.all(), serializer_class=ImageSerializer),
          name="enterprise_images"),
+    path("custom/",
+         CustomPlanListApiView.as_view(queryset=Image.objects.all(), serializer_class=ImageSerializer),
+         name="custom_images"),
 ]

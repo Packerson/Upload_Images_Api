@@ -6,14 +6,18 @@ User = get_user_model()
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name="profile",
-                                on_delete=models.CASCADE)
-    is_basic = models.BooleanField(verbose_name=_("Basic"), default=False,
-                                   help_text=_("Basic plan?"))
-    is_premium = models.BooleanField(verbose_name=_("Premium"), default=False,
-                                     help_text=_("Premium plan?"))
-    is_enterprise = models.BooleanField(verbose_name=_("Enterprise"), default=False,
-                                        help_text=_("Enterprise plan?"))
+
+    TIER = (
+        ('BASIC', 'Basic'),
+        ('PREMIUM', 'Premium'),
+        ('ENTERPRISE', 'Enterprise'),
+        ('CUSTOM', 'Custom')
+    )
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    tier = models.CharField(max_length=10, choices=TIER, default='BASIC')
 
     def __str__(self):
-        return f"{self.user.username}'s profile "
+        return f'{self.user.username} {self.tier} Profile'
+
+

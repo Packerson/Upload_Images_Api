@@ -31,10 +31,10 @@ def user_directory_path_others(instance, filename):
 
 
 class Image(models.Model):
-    user = models.ForeignKey(User, related_name="image",
+    user = models.ForeignKey(User, related_name="user",
                              on_delete=models.CASCADE)
-    plan = models.ForeignKey(Profile, related_name="plan",
-                             on_delete=models.CASCADE, null=True)
+    # plan = models.OneToOneField(Profile, related_name="plan",
+    #                             on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255, unique=True)
     alt = models.TextField(null=True)
     date_creation = models.DateTimeField(default=timezone.now)
