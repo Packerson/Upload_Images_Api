@@ -1,20 +1,3 @@
 # Upload_Images_Api
 
 
-
-
-Docker: 
-
-POSTGRES_DB=Postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres123
-POSTGRES_HOST=db
-POSTGRES_PORT=5432
-
-
-Local: 
-POSTGRES_DB=Upload_Images
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=127.0.0.1
-POSTGRES_PORT=5432
