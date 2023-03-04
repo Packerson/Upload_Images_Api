@@ -83,3 +83,6 @@ class Image(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s image"
+
+    def tier(self):
+        return f"{self.user.profile.tier}"
