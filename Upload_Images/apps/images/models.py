@@ -44,62 +44,63 @@ class Image(models.Model):
 
     def save(self, **kwargs):
 
-
-        # print(self.user.profile.custom_resolution.resolution)
-
         if self.user.profile.tier != "CUSTOM":
 
             """Creating thumbnail 200px"""
 
             output_size_200 = (200, 200)
-            output_thumb_200 = BytesIO()
+            output_resize_200 = BytesIO()
 
             img_200 = PIL_IMAGE.open(self.image)
 
             img_name = self.image.name.split('.')[0]
-
-            if img_200.height != 200 or img_200.width != 200:
-                img_200.thumbnail(output_size_200)
-                img_200.save(output_thumb_200, format='JPEG', quality=90)
-
-            self.image_200 = InMemoryUploadedFile(output_thumb_200, 'ImageField', f"{img_name}_thumb_200.jpg",
+            
+            img_200 = img_200.resize(output_size_200)
+            img_200.save(output_resize_200, format='JPEG', quality=100)
+            output_resize_200.seek(0)
+            
+            self.image_200 = InMemoryUploadedFile(output_resize_200, 'ImageField', f"{img_name}_thumb_200.jpg",
                                                   'image/jpg',
-                                                  sys.getsizeof(output_thumb_200), None)
+                                                  sys.getsizeof(output_resize_200), None)
 
             if self.user.profile.tier == "PREMIUM" or self.user.profile.tier == "ENTERPRISE":
                 """Creating thumbnail 400px"""
 
                 output_size_400 = (400, 400)
-                output_thumb_400 = BytesIO()
+                output_resize_400 = BytesIO()
 
                 img_400 = PIL_IMAGE.open(self.image)
 
-                if img_400.height != 400 or img_400.width != 400:
-                    img_400.thumbnail(output_size_400)
-                    img_400.save(output_thumb_400, format='JPEG', quality=90)
+                img_400 = img_400.resize(output_size_400)
+                img_400.save(output_resize_400, format='JPEG', quality=100)
+                output_resize_400.seek(0)
 
-                self.image_400 = InMemoryUploadedFile(output_thumb_400, 'ImageField', f"{img_name}_thumb_400.jpg",
+                self.image_400 = InMemoryUploadedFile(output_resize_400, 'ImageField', f"{img_name}_thumb_400.jpg",
                                                       'image/jpg',
-                                                      sys.getsizeof(output_thumb_400), None)
+                                                      sys.getsizeof(output_resize_400), None)
 
         if self.user.profile.tier == "CUSTOM":
+           
             size = int(self.user.profile.custom_resolution.resolution)
 
             """Creating thumbnail Custom PX"""
 
             output_size_custom = (size, size)
-            output_thumb_custom = BytesIO()
+            output_resize_custom = BytesIO()
+
+            print(output_size_custom)
 
             img_custom = PIL_IMAGE.open(self.image)
             img_name = self.image.name.split('.')[0]
 
-            img_custom.thumbnail(output_size_custom)
-            img_custom.save(output_thumb_custom, format='JPEG', quality=90)
+            img_custom = img_custom.resize(output_size_custom)
+            img_custom.save(output_resize_custom, format='JPEG', quality=100)
+            output_resize_custom.seek(0)
 
-            self.image_custom = InMemoryUploadedFile(output_thumb_custom,
+            self.image_custom = InMemoryUploadedFile(output_resize_custom,
                                                      'ImageField', f"{img_name}_thumb_custom.jpg",
                                                      'image/jpg',
-                                                     sys.getsizeof(output_thumb_custom), None)
+                                                     sys.getsizeof(output_resize_custom), None)
 
         if self.user.profile.tier == "BASIC":
             """Only basic tier can't have original size"""
