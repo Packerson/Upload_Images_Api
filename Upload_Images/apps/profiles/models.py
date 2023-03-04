@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 class Custom(models.Model):
-    resolution = models.IntegerField(null=True, blank=True, default=1)
+    resolution = models.IntegerField(default=1000)
 
     def __str__(self):
         return f"Height in px: {self.resolution}"
@@ -28,3 +28,8 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} {self.tier} Profile'
 
+    def save(self, **kwargs):
+        if self.tier != "CUSTOM":
+            self.custom_resolution = None
+
+        super(Profile, self).save()

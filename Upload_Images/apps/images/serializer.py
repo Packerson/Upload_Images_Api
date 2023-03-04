@@ -20,6 +20,7 @@ class ImageSerializer(serializers.ModelSerializer):
             'image',
             'image_200',
             'image_400',
+            'image_custom',
             ]
 
 
