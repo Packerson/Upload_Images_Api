@@ -80,7 +80,7 @@ class Image(models.Model):
                                                       sys.getsizeof(output_resize_400), None)
 
         if self.user.profile.tier == "CUSTOM":
-           
+
             size = int(self.user.profile.custom_resolution.resolution)
 
             """Creating thumbnail Custom PX"""
