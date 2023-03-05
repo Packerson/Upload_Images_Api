@@ -1,9 +1,9 @@
 # Upload_Images_Api
 
-###My plan for this app:
--repositorium on GitHUb
--made notes with app structure
--create virtual env
+### My plan for this app:
+- repositorium on GitHUb
+- made notes with app structure
+- create virtual env
 -start django project\
 -connect to Postres
 -custom user model
@@ -21,7 +21,7 @@
 
 
 
-####What I use in app:
+#### What I use in app:
   -GitHub
   -djoser
   -django
