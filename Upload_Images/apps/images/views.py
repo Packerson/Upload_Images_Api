@@ -1,14 +1,13 @@
-from django.http import HttpResponse
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from rest_framework import generics, permissions, status, viewsets
+from rest_framework import generics, permissions, status
 from rest_framework.generics import ListAPIView
-from rest_framework.utils import json
+
 from rest_framework.views import APIView
 
 from .models import Image
-from .renderers import ImageJSONRenderer
 from .serializer import ImageSerializer
+from ..links.exceptions import ImageNotFound
 
 
 class ImageViewSet(ListAPIView):
@@ -37,6 +36,28 @@ class ImageUploadViewSet(ListAPIView):
         raise ValidationError('Wrong extension, only jpg and png are accepted ')
 
 
+class GetImageAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, id):
+
+        try:
+            image = Image.objects.get(id=id)
+        except Image.DoesNotExist:
+            raise ImageNotFound
+
+        user = request.user
+        if image.user != user:
+            return Response(
+                {"error": "You don't have access to image"
+                          " that doesn't belong to you"},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        serializer = ImageSerializer(image)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class GetUsersImagesViewSet(generics.ListAPIView):
     """Generic Users Images"""
 
@@ -49,6 +70,7 @@ class GetUsersImagesViewSet(generics.ListAPIView):
 
 
 class BasicPlanListApiView(generics.ListAPIView):
+
     """Generic list of BasicPlan"""
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ImageSerializer
@@ -58,6 +80,7 @@ class BasicPlanListApiView(generics.ListAPIView):
 
 
 class PremiumPlanListApiView(generics.ListAPIView):
+
     """Generic list of PremiumPlan"""
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ImageSerializer
@@ -67,6 +90,7 @@ class PremiumPlanListApiView(generics.ListAPIView):
 
 
 class EnterprisePlanListApiView(generics.ListAPIView):
+
     """Generic list of EnterprisePlan"""
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ImageSerializer

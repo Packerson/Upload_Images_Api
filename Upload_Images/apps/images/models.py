@@ -113,3 +113,6 @@ class Image(models.Model):
 
     def tier(self):
         return f"{self.user.profile.tier}"
+
+    def image_url(self):
+        return self.image.url
