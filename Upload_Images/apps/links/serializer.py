@@ -6,4 +6,12 @@ class LinksSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Links
-        fields = "__all__"
+        fields = [
+            'user',
+            'link',
+            'expiration_date',
+            'expiration_link',
+            'get_expiration_link'
+        ]
+
+

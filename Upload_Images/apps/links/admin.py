@@ -4,7 +4,7 @@ from .models import Links
 
 class LinksAdmin(admin.ModelAdmin):
 
-    list_display = ['id', 'user', 'time', 'date_creation', 'expiration_date']
+    list_display = ['id', 'user', 'link', 'time', 'date_creation', 'expiration_date', 'expiration_link']
     list_filter = ['user', 'time', 'date_creation']
     list_display_links = ['user', 'time', 'date_creation']
 

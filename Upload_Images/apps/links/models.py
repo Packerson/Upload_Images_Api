@@ -5,6 +5,9 @@ from django.db import models
 
 User = get_user_model()
 
+"""
+Foregin key to Image, not to user , will be easier to return a image"""
+
 
 class Links(models.Model):
     user = models.ForeignKey(User,
@@ -19,9 +22,12 @@ class Links(models.Model):
 
     date_creation = models.DateTimeField(default=timezone.now, editable=False)
     expiration_date = models.DateTimeField(null=True)
+    expiration_link = models.CharField(null=True, max_length=200)
 
     def __str__(self):
         return f"Expiring link belong to {self.user.username} time in seconds {self.time}"
 
+    def get_expiration_link(self):
+        return f"/api-auth/links/{self.expiration_link}"
     class Meta:
         verbose_name_plural = "Links"
