@@ -3,7 +3,7 @@ from .models import Profile, Custom
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'tier']
+    list_display = ['id', 'user', 'tier', 'custom_resolution']
     list_filter = ['tier']
     list_display_links = ['id', 'user']
 
@@ -17,5 +17,11 @@ class ProfileAdmin(admin.ModelAdmin):
         super(ProfileAdmin, self).save_model(request, obj, form, change)
 
 
+class CustomAdmin(admin.ModelAdmin):
+    list_display = ['id', 'resolution']
+    list_filter = ['resolution']
+    list_display_links = ['resolution']
+
+
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Custom)
+admin.site.register(Custom, CustomAdmin)

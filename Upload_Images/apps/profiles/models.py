@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 class Custom(models.Model):
-    resolution = models.IntegerField(default=1000)
+    resolution = models.IntegerField(default=0, unique=True)
 
     def __str__(self):
         return f"Height in px: {self.resolution}"
@@ -22,7 +22,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     tier = models.CharField(max_length=10, choices=TIER, default='BASIC')
-    custom_resolution = models.ForeignKey(Custom, on_delete=models.CASCADE, related_name="profile", default=1,
+    custom_resolution = models.ForeignKey(Custom, on_delete=models.CASCADE, related_name="profile",
                                           null=True, blank=True)
 
     def __str__(self):

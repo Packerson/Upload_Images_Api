@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile
+from .models import Profile, Custom
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -8,6 +8,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source="user.last_name")
     email = serializers.EmailField(source="user.email")
     full_name = serializers.SerializerMethodField(read_only=True)
+    resolution = serializers.CharField(source='custom_resolution.resolution', required=False)
 
     class Meta:
         model = Profile
@@ -18,8 +19,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             'full_name',
             'email',
             'id',
-            'tier'
+            'tier',
+            'resolution',
+            'custom_resolution'
             ]
+        extra_kwargs = {"resolution": {"required": False, "allow_null": True}}
 
     def get_full_name(self, obj):
         first_name = obj.user.first_name.title()
@@ -32,7 +36,12 @@ class UpdatedProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'tier'
-            ]
+            'tier',
+            'custom_resolution'
+        ]
 
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('tier', instance.tier)
+        instance.save()
+        return instance
 
