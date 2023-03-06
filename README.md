@@ -4,13 +4,15 @@ Django rest framework appliaction allows users to upload their images. Depepend 
 After upadted image user will get link to theris image and link to thumbnail depened of tier. 
 
 ### I divied projcet to three apps:
-- asers:
+- users:
   - custom user model
 - profiles 
   - model Profile with buil in tiers (Basic, Premium, Enterprise)
   - model Custom connecting to Profiles, allow admin for creating another tiers with custom pixel size
 - images
   - model Image, depend of user's tier by ovewritng save create images and save them
+- links
+  - model link connected to Image, allow user to generete expiration link, and check if link expired
 
 ## To do:
 - generating an expiring link to the image (the link expires after a given number of seconds (the user can specify any number between 300 and 30000)).
