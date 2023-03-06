@@ -24,6 +24,8 @@ class ImageSerializer(serializers.ModelSerializer):
             ]
 
 
+
+
 class UpdatedImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
