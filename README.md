@@ -24,7 +24,13 @@ Allowed images extension jpg, png
   - model link connected to Image, allow user to generete expiration link, and check if link expired
 
 ## To do:
+- Model user tested 
 - TESTS!
+
+Run this code, and check test coverage in html version
+```
+pytest -p no:warnings --cov=. --cov-report html
+```
 
 ### How to set up the project:
 - create viratual enviorement
@@ -38,7 +44,7 @@ Allowed images extension jpg, png
 - repositorium on GitHUb
 - made notes with app structure
 - create virtual env
-- tart django project\
+- start django project
 - connect to Postres
 - custom user model
 - logging
