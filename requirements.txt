@@ -50,5 +50,6 @@ uritemplate==4.1.1
 urllib3==1.26.14
 pytest-django==4.4.0
 pytest-factoryboy==2.1.0
-Faker==8.9.1
+Faker
 pytest-cov==2.12.1
+pytest

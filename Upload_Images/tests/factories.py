@@ -1,8 +1,8 @@
 import factory
-from Upload_Images.apps.profiles.models import Profile
+from apps.profiles.models import Profile
 from django.db.models.signals import post_save
 from faker import Factory as FakerFactory
-from Upload_Images.Upload_Images.settings import AUTH_USER_MODEL
+from Upload_Images.settings import AUTH_USER_MODEL
 
 faker = FakerFactory.create()
 
