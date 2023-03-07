@@ -3,7 +3,15 @@
 Django rest framework appliaction allows users to upload their images. Depepend of user tier, also tier can be added by admin in admin panel. 
 After upadted image user will get link to theris image and link to thumbnail depened of tier. 
 
-### I divied projcet to three apps:
+### Tiers:
+- BASIC: image resolution 200
+- PREMIUM: image resolution 200, 400, original
+- ENTERPRISE: image resolution 200, 400, original, and allow for creating expired link
+- CUSTOM: image resolution original and custom, and allow for creating expired link
+
+Allowed images extension jpg, png
+
+### I divied projcet to four apps:
 - users:
   - custom user model
 - profiles 
@@ -15,10 +23,11 @@ After upadted image user will get link to theris image and link to thumbnail dep
   - model link connected to Image, allow user to generete expiration link, and check if link expired
 
 ## To do:
-- generating an expiring link to the image (the link expires after a given number of seconds (the user can specify any number between 300 and 30000)).
+- TESTS!
 
 ### How to set up the project:
 - create viratual enviorement
+- check env.example, create .env with values
 - pip install -r requirenets.txt
 - set up databases
 - python3 manage.py runserver
@@ -39,10 +48,7 @@ After upadted image user will get link to theris image and link to thumbnail dep
 - custom admin-panel
 - use resize to change pixel on uploaded images
 - docker config
-- celery
-- redis 
 - tests
-
 
 
 #### What I use in app:
