@@ -1,6 +1,7 @@
 # Upload_Images_Api
 
-Django rest framework appliaction allows users to upload their images. Depepend of user tier, also tier can be added by admin in admin panel. 
+Django rest framework appliaction allows users to upload their images. Depends of tier user will get a link to images,
+also tier can be added by admin in admin panel. 
 After upadted image user will get link to theris image and link to thumbnail depened of tier. 
 
 ### Tiers:
