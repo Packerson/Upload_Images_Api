@@ -12,9 +12,6 @@ logger = logging.getLogger(__name__)
     a foreign key pointing to the instance of the user. 
     The other method save_profile just saves the instance.
 
-    need to write method in apps.py,
-    later register in admin.py
-
     More about signals:
     https://www.geeksforgeeks.org/how-to-create-and-use-signals-in-django/
 """

@@ -1,5 +1,7 @@
 from rest_framework.exceptions import APIException
 
+"""Custom errors"""
+
 
 class ImageNotFound(APIException):
     status_code = 404

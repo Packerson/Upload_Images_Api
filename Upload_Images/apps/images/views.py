@@ -100,7 +100,7 @@ class EnterprisePlanListApiView(generics.ListAPIView):
 
 
 class CustomPlanListApiView(generics.ListAPIView):
-    """Generic list of EnterprisePlan"""
+    """Generic list of CustomPlan"""
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ImageSerializer
 
