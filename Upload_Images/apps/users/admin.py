@@ -22,6 +22,8 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ['email', 'username', 'first_name', "last_name", 'is_staff',
                    'is_active']
 
+    """fieldsets dived section user in admin panel"""
+
     fieldsets = (
         (
             _("Login Credentials"),
@@ -64,6 +66,10 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
+
+    """The add_fieldsets class variable is used to define the 
+    fields that will be displayed on the create user page."""
+
     add_fieldsets = (
         (None, {
             "classes": (
@@ -79,6 +85,8 @@ class UserAdmin(BaseUserAdmin):
         },
          ),
     )
+
+    """Can be search by fields"""
     search_fields = ['email', 'username', "first_name", "last_name"]
 
 

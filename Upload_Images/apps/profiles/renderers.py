@@ -7,7 +7,8 @@ class ProfileJSONRenderer(JSONRenderer):
     charset = "utf-8"
 
     """ define function to override JSONRenderer to render profile data 
-    and namespaces """
+    and namespaces 
+    render dict structure"""
 
     def render(self, data, accepted_media_type=None, renderer_context=None):
         errors = data.get('errors', None)

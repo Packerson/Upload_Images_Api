@@ -6,6 +6,9 @@ User = get_user_model()
 
 
 class Custom(models.Model):
+
+    """In admin panel, Admin can create a custom resolution. """
+
     resolution = models.IntegerField(default=0, unique=True)
 
     def __str__(self):
@@ -13,6 +16,9 @@ class Custom(models.Model):
 
 
 class Profile(models.Model):
+
+    """Tiers for users """
+
     TIER = (
         ('BASIC', 'Basic'),
         ('PREMIUM', 'Premium'),

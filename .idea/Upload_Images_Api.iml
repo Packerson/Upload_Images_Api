@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Upload_Images" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.10 (Upload_Images_Api_test)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (Upload_Images_Api)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">

@@ -1,13 +1,6 @@
-import datetime
-
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
-from django.core.validators import validate_image_file_extension
-from rest_framework.exceptions import ValidationError
-from django_resized import ResizedImageField
-from apps.profiles.models import Profile
 from PIL import Image as PIL_IMAGE
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
@@ -33,6 +26,19 @@ def user_directory_path_custom(instance, filename):
 
 
 class Image(models.Model):
+
+    """In Image model,  depends on user tier create link to the image
+    with desired resolution.
+    Save method validate user tier,
+    BASIC: image resolution 200
+    PREMIUM: image resolution 200, 400, original
+    ENTERPRISE: image resolution 200, 400, original, and allow for creating expired link
+    CUSTOM: image resolution original and custom, and allow for creating expired link
+
+    Custom tier can be created in admin panel
+
+    Allowed extension jpg, png"""
+
     user = models.ForeignKey(User, related_name="user",
                              on_delete=models.CASCADE)
     title = models.CharField(max_length=255, unique=True)

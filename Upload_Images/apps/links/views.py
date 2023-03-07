@@ -14,7 +14,9 @@ from .exceptions import ImageNotFound, LinkExpiredError
 
 class LinksAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-
+    """
+    Class for generated unique link only for permission user
+    """
     def post(self, request):
 
         data = self.request.data

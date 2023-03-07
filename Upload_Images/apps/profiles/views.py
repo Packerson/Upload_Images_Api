@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 
 from .models import Profile
 from .renderers import ProfileJSONRenderer
-from .serializers import ProfileSerializer, UpdatedProfileSerializer
+from .serializers import ProfileSerializer
 
 
 class BasicPlanListApiView(generics.ListAPIView):
