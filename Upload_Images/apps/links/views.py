@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from datetime import datetime, timedelta
-from django.utils import timezone
+
 
 from .serializer import LinksSerializer, GenerateLinkSerializer
 from .models import Links
@@ -68,7 +68,7 @@ class UuidLinkViewAPIView(APIView):
         except Links.DoesNotExist:
             raise ImageNotFound
 
-        if link.expiration_date < timezone.now():
+        if link.expiration_date < datetime.now():
             link.delete()
             raise LinkExpiredError
 

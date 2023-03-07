@@ -1,8 +1,8 @@
-from django.utils import timezone
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from .exceptions import TimeValueError
-
+from django.utils import timezone
 from apps.images.models import Image
 
 User = get_user_model()

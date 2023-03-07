@@ -8,6 +8,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source="user.last_name")
     email = serializers.EmailField(source="user.email")
     full_name = serializers.SerializerMethodField(read_only=True)
+    """Allow for null field"""
     resolution = serializers.CharField(source='custom_resolution.resolution', required=False)
 
     class Meta:
