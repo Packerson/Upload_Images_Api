@@ -14,7 +14,6 @@ class LinksSerializer(serializers.ModelSerializer):
             'image',
             'time',
             'expiration_date',
-            'expiration_link',
             'get_expiration_link'
         ]
 

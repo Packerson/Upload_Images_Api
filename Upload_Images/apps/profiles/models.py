@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
+from apps.profiles.exceptions import ResolutionValueNegative
+
 User = get_user_model()
 
 
@@ -9,10 +11,23 @@ class Custom(models.Model):
 
     """In admin panel, Admin can create a custom resolution. """
 
-    resolution = models.IntegerField(default=0, unique=True)
+    resolution = models.PositiveIntegerField(default=0, unique=True)
 
     def __str__(self):
         return f"Height in px: {self.resolution}"
+
+    def clean(self):
+
+        """Validate resolution value """
+        if self.resolution < 0:
+            raise ResolutionValueNegative
+        return self.resolution
+
+    def save(self, **kwargs):
+
+        """need to call validator"""
+        self.clean()
+        super(Custom, self).save()
 
 
 class Profile(models.Model):

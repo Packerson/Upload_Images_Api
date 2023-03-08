@@ -13,3 +13,6 @@ class NotYourProfile(APIException):
     default_detail = "You can't edit a profile that doesn't belong to you"
 
 
+class ResolutionValueNegative(APIException):
+    status_code = 400
+    default_detail = "The resolution can't be negative"

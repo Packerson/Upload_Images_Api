@@ -29,6 +29,8 @@ def profile(db, profile_factory):
 def test_user_str(base_user):
     """Test the custom user model string representation"""
     assert base_user.__str__() == f"{base_user.username}"
+
+
 def test_user_full_name(base_user):
     """Test that the user models get_full_name method works"""
     full_name = f"{base_user.first_name} {base_user.last_name}"
@@ -69,7 +71,7 @@ def test_create_user_with_no_email(user_factory):
 
 
 def test_create_use_with_no_username(user_factory):
-    """Test that creating a new user with no usrname raises an error"""
+    """Test that creating a new user with no username raises an error"""
     with pytest.raises(ValueError) as err:
         user_factory.create(username=None)
     assert str(err.value) == "Users must submit a username"
