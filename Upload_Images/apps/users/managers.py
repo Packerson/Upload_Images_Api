@@ -33,7 +33,7 @@ class CustomUserManager(BaseUserManager):
             self.email_validator(email)
         else:
             raise ValueError(_("Base User Account: "
-                               "An email address is required)"))
+                               "An email address is required"))
         user = self.model(
             username=username,
             first_name=first_name,
@@ -62,7 +62,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_superuser=True"))
 
         if not password:
-            raise ValueError(_("Superuser must have password"))
+            raise ValueError(_("Superusers must have a password"))
 
         if email:
             email = self.normalize_email(email)

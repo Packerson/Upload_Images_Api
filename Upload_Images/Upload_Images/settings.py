@@ -1,3 +1,5 @@
+import os
+
 import environ
 
 from pathlib import Path
@@ -126,7 +128,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -155,6 +157,10 @@ logger = logging.getLogger(__name__)
 
 LOG_LEVEL = "INFO"
 
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+LOG_FILE = '/api.log'
+LOG_PATH = LOG_DIR + LOG_FILE
+
 logging.config.dictConfig({
     "version": 1,
     "disable_existing_loggers": False,
@@ -175,7 +181,7 @@ logging.config.dictConfig({
             "level": "INFO",
             "class": "logging.FileHandler",
             "formatter": "file",
-            "filename": "logs/upload_images.log",
+            "filename": LOG_PATH,
         },
         "django.server": DEFAULT_LOGGING["handlers"]["django.server"],
     },
