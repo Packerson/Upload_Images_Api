@@ -4,6 +4,41 @@ Django rest framework application which allows users to upload their images. Dep
 Additional tiers can also be added by admin in the admin panel. 
 After updating an image, the user will get a link to their image and a link to a thumbnail, depending on the tier. 
 
+## MAIN ENDPOINTS:
+- admin/             
+- api-auth/jwt/create/
+  - POST
+  - login site
+  - {
+    "email":"user email",
+    "password":"password"
+     }
+- api-auth/profile/me/
+  - GET
+  - profil site
+- api-auth/images/my
+  - GET
+  - user images
+- api-auth/images/upload/   
+  - POST 
+  - upload images 
+    - {
+    "file": "image.file",
+    "title": "image title",
+    "alt": "image description",
+      }
+- api-auth/images/<int:id>
+  - GET
+  - image details
+- api-auth/links/
+  - POST
+  - get expiring link
+    - {
+    "id":"image id",
+    "time":"expiring time in s",
+      }
+
+
 ### Tiers:
 - BASIC: image resolution 200 px
 - PREMIUM: image resolution 200 px, 400 px, original size
