@@ -22,10 +22,10 @@ Allowed images extension jpg, png
   - model Image, depend of user's tier by ovewritng save create images and save them
 - links
   - model link connected to Image, allow user to generete expiration link, and check if link expired
+  
 
-## To do:
-- Model user tested 
-- TESTS!
+## To do :
+- more tests
 
 Run this code, and check test coverage in html version
 ```
