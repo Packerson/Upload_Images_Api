@@ -4,6 +4,9 @@ Django rest framework application which allows users to upload their images. Dep
 Additional tiers can also be added by admin in the admin panel. 
 After updating an image, the user will get a link to their image and a link to a thumbnail, depending on the tier. 
 
+Here is the DockerHub link: https://hub.docker.com/r/packerson/upload_images_api_web <br>
+Here is the GitHub link: https://github.com/Packerson/Upload_Images_Api
+
 ## MAIN ENDPOINTS:
 - admin/             
 - api-auth/jwt/create/
